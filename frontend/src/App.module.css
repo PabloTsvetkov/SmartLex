@@ -1,0 +1,36 @@
+.contentContainer {
+  width: 100vw;
+  min-height: 100vh;
+
+  background-color: #dfe3ff;
+}
+
+.mainNavigation {
+  width: 100%;
+  min-height: 70px;
+
+  background-color: #003366;
+
+  display: flex;
+  align-items: center;
+}
+
+.mainNavigation a {
+  text-decoration: none;
+  color: white;
+  font-size: 20px;
+  font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+  font-weight: 550;
+
+  margin-left: 20px;
+  margin-right: 20px;
+}
+
+.mainNavigation .logo {
+  font-size: 35px;
+
+  padding: 3px;
+  
+  border-right: solid 1px white;
+  border-left: solid 1px white;
+}

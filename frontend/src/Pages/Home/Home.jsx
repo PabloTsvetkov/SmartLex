@@ -1,9 +1,11 @@
 import React from 'react';
 
+import s from "./Home.module.css"
+
 const Home = () => {
     return (
-        <div>
-            <h1>Main Page</h1>
+        <div className={s.mainPageContainer}>
+            <h1>Главная страница</h1>
         </div>
     );
 };

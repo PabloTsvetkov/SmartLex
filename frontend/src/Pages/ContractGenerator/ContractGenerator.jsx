@@ -1,9 +1,17 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { useLocation } from "react-router-dom";
+
+import getContractInfo from "../../templates";
+import s from "./ContractGenerator.module.css";
 
 const ContractGenerator = () => {
     const [formFields, setFormFields] = useState({});
-    const selectedTemplate = 'contract_template.docx';
+
+    const location = useLocation();
+    const current_pathname = location.pathname.split('/').pop();
+    const contract_info = getContractInfo(current_pathname);
+    const selectedTemplate = contract_info.russian_name;
 
     const handleInputChange = (event) => {
         const { name, value } = event.target;
@@ -11,55 +19,52 @@ const ContractGenerator = () => {
     };
 
     const handleSubmit = (event) => {
+        console.log("hadle submit");
         event.preventDefault();
         axios.post('http://localhost:5000/api/generate', {
-            template: selectedTemplate,
+            template: current_pathname,
             fields: formFields
         }, { responseType: 'blob' })
             .then(response => {
                 const url = window.URL.createObjectURL(new Blob([response.data]));
                 const link = document.createElement('a');
                 link.href = url;
-                link.setAttribute('download', `${selectedTemplate.replace('.docx', '_filled.docx')}`);
+                link.setAttribute('download', `${selectedTemplate}.docx`);
                 document.body.appendChild(link);
                 link.click();
             });
     };
 
+    // useEffect(() => {
+    //     axios.get(`http://localhost:5000/api/fields_for_generation/${contract_info}`)
+    //         .then(response => setFields(response.data.fields));
+    // }, []);
+
+    const fields = contract_info.fields;
+    console.log(fields);
+
     return (
-        <div>
-            <h2>Заполнение договора: {selectedTemplate}</h2>
-            <form onSubmit={handleSubmit}>
-                <div>
+        <div className={s.generationMainContainer}>
+            <div className={s.mainContent}>
+                <h2>Заполнение договора</h2>
+                <h3>{selectedTemplate}</h3>
+                <form onSubmit={handleSubmit}>
+                    {fields.map(([name, label]) => {
+                        return (
+                            <div className={s.inputItem}>
+                                <label>{label}:</label>
+                                <input type="text" name={name} onChange={handleInputChange}></input>
+                            </div>
+                        );
+                    })}
+                    {/* <div>
                     <label>Фамилия:</label>
                     <input type="text" name="surname" onChange={handleInputChange} />
                 </div>
-                <div>
-                    <label>Имя:</label>
-                    <input type="text" name="name" onChange={handleInputChange} />
-                </div>
-                <div>
-                    <label>Роль:</label>
-                    <input type="text" name="role" onChange={handleInputChange} />
-                </div>
-                <div>
-                    <label>Год:</label>
-                    <input type="text" name="year" onChange={handleInputChange} />
-                </div>
-                <div>
-                    <label>Число:</label>
-                    <input type="text" name="date" onChange={handleInputChange} />
-                </div>
-                <div>
-                    <label>Месяц:</label>
-                    <input type="text" name="month" onChange={handleInputChange} />
-                </div>
-                <div>
-                    <label>Номер договора:</label>
-                    <input type="text" name="contract_number" onChange={handleInputChange} />
-                </div>
-                <button type="submit">Скачать документ</button>
-            </form>
+                */}
+                    <button type="submit">Скачать документ</button>
+                </form>
+            </div>
         </div>
     );
 };

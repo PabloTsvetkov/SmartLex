@@ -5,14 +5,17 @@ from flask_cors import CORS
 from docx import Document
 
 app = Flask(__name__)
-CORS(app, resources={r"/*": {"origins": "http://localhost:3001"}})
+CORS(app, resources={r"/*": {"origins": "http://localhost:3000"}})
 
 @app.route('/api/templates', methods=['GET'])
 def get_templates():
-    # path_str = 'templatesAll'
-    # templates_list = [os.path.splitext(filename)[0] for filename in os.listdir(path_str)]
-    # return {"templates": templates_list}
-    return {"templates" : os.listdir("templatesAll")}
+    # ls = os.listdir("templatesAll")
+    toRet = []
+    templates_links = ['basic_employment_contract', 'lease_agreement_for_non-residential_premises', 'sales_contract', '','','','','','']
+    templates_names = ['Базовый трудовой договор', 'Договор аренды нежилого помещения', 'Договор купли-продажи товара']
+    for i in range(len(templates_names)):
+        toRet += [[templates_names[i], templates_links[i]]]
+    return {"templates" : toRet}
 
 @app.route('/api/downloadTemplate/<template_name>', methods=['GET'])
 def download_template(template_name):
@@ -24,8 +27,7 @@ def generate_contract():
     data = request.json
     template_name = data['template']
     fields = data['fields']
-
-    doc = Document(f"templatesForGenerating/{template_name}")
+    doc = Document(f"templatesForGenerating/{template_name}.docx")
 
     for key, value in fields.items():
         for paragraph in doc.paragraphs:

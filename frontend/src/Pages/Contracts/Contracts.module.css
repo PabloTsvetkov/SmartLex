@@ -1,0 +1,68 @@
+.generatingMainContainer {
+  width: 100%;
+
+  box-sizing: border-box;
+  padding: 5px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.mainContent {
+  background-color: #bcc4fb;
+
+  width: 60%;
+  min-height: 200px;
+
+  box-sizing: border-box;
+  padding-top: 15px;
+  padding-bottom: 15px;
+  padding-left: 25px;
+  padding-right: 25px;
+
+  border-radius: 35px;
+}
+
+.mainContent h2 {
+  justify-self: center;
+}
+
+.mainContent button {
+  all: unset;
+}
+
+.buttonContainer {
+  width: 80%;
+
+  display: flex;
+  justify-self: center;
+  justify-content: space-between;
+
+  margin-top: 20px;
+}
+
+button.button {
+  padding: 5px;
+  padding-left: 10px;
+  padding-right: 10px;
+  background-color: #acb3e0;
+  height: 30px;
+  border-radius: 10px;
+  min-width: 30%;
+  text-align: center;
+  font-weight: 500;
+}
+button.button:hover {
+  cursor: pointer;
+  background-color: #7e82a4;
+}
+
+button.buttonDOCX {
+
+}
+
+.previewContainer {
+  height: 600px;
+  width: 100%;
+}
