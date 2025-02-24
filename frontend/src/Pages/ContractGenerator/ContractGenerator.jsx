@@ -4,6 +4,7 @@ import { useLocation } from "react-router-dom";
 
 import getContractInfo from "../../templates";
 import s from "./ContractGenerator.module.css";
+import LINK from '../../LINK';
 
 const ContractGenerator = () => {
     const [formFields, setFormFields] = useState({});
@@ -21,7 +22,7 @@ const ContractGenerator = () => {
     const handleSubmit = (event) => {
         console.log("hadle submit");
         event.preventDefault();
-        axios.post('http://localhost:5000/api/generate', {
+        axios.post(`${LINK}/api/generate`, {
             template: current_pathname,
             fields: formFields
         }, { responseType: 'blob' })

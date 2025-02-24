@@ -6,6 +6,7 @@ import s from './Contracts.module.css'
 import getContractInfo from "../../templates";
 
 import { useLocation, useNavigate } from "react-router-dom";
+import LINK from "../../LINK";
 
 pdfjs.GlobalWorkerOptions.workerSrc = new URL(
   'pdfjs-dist/build/pdf.worker.min.mjs',
@@ -20,7 +21,7 @@ export default function Contracts() {
 
   const onDownloadButtonClick = (file_type) => {
     const full_file_name = contract_info.russian_name.split(' ').join('_') + "." + file_type;
-    const url_to = `http://localhost:5000/api/downloadTemplate/${full_file_name}`;
+    const url_to = `${LINK}/api/downloadTemplate/${full_file_name}`;
     axios({
       url: url_to,
       method: 'GET',
@@ -48,7 +49,7 @@ export default function Contracts() {
 
   let fileName = contract_info.russian_name.split(' ').join('_');
 
-  const [filePath, setFilePath] = useState(`http://localhost:5000/templatesAll/${fileName}.pdf`);
+  const [filePath, setFilePath] = useState(`${LINK}/templatesAll/${fileName}.pdf`);
 
   const [numPages, setNumPages] = useState(null);
   const [viewMode, setViewMode] = useState('template');
@@ -63,8 +64,8 @@ export default function Contracts() {
           <button className={s.button} onClick={() => onGenerateButtonClick()}>Сгенерировать договор</button>
         </div>
         <div className={s.switchButtonContainer}>
-          <button className={viewMode === "template" ? `${s.switchButton} ${s.active}` : `${s.switchButton}`} onClick={() => {setViewMode("template"); setFilePath(`http://localhost:5000/templatesAll/${fileName}.pdf`)}}>Шаблон</button>
-          <button className={viewMode === "example" ? `${s.switchButton} ${s.active}` : `${s.switchButton}`} onClick={() => {setViewMode("example"); setFilePath(`http://localhost:5000/templatesAll/${fileName}_пример.pdf`)}}>Пример заполнения</button>
+          <button className={viewMode === "template" ? `${s.switchButton} ${s.active}` : `${s.switchButton}`} onClick={() => {setViewMode("template"); setFilePath(`${LINK}/templatesAll/${fileName}.pdf`)}}>Шаблон</button>
+          <button className={viewMode === "example" ? `${s.switchButton} ${s.active}` : `${s.switchButton}`} onClick={() => {setViewMode("example"); setFilePath(`${LINK}/templatesAll/${fileName}_пример.pdf`)}}>Пример заполнения</button>
         </div>
         <div className={s.previewContainer} style={{ overflowY: 'auto' }}>
           <Document file={filePath} onLoadSuccess={(obj) => setNumPages(obj._pdfInfo.numPages)}>

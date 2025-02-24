@@ -3,6 +3,7 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
 import s from "./ContractTemplates.module.css"
+import LINK from '../../LINK';
 
 const ContractTemplates = () => {
   const [templates, setTemplates] = useState([]);
@@ -30,7 +31,7 @@ const ContractTemplates = () => {
   }
 
   useEffect(() => {
-    axios.get('http://localhost:5000/api/templates')
+    axios.get(`${LINK}/api/templates`)
       .then(response => setTemplates(response.data.templates));
   }, []);
 
