@@ -1,10 +1,16 @@
 import React, { useEffect, useState } from "react";
 import axios from 'axios';
+import { Document, Page, pdfjs } from 'react-pdf';
 
 import s from './Contracts.module.css'
 import getContractInfo from "../../templates";
 
 import { useLocation, useNavigate } from "react-router-dom";
+
+pdfjs.GlobalWorkerOptions.workerSrc = new URL(
+  'pdfjs-dist/build/pdf.worker.min.mjs',
+  import.meta.url,
+).toString();
 
 export default function Contracts() {
   const location = useLocation();
@@ -36,6 +42,17 @@ export default function Contracts() {
     navigate(`/generate/${current_pathname}`)
   }
 
+  const onError = (error) => {
+    console.log("error in file viewing: ", error)
+  }
+
+  let fileName = contract_info.russian_name.split(' ').join('_') + ".pdf";
+
+  const [filePath, setFilePath] = useState(`http://localhost:5000/templatesAll/${fileName}`);
+
+  const [numPages, setNumPages] = useState(null);
+  const [viewMode, setViewMode] = useState('template');
+
   return (
     <div className={s.generatingMainContainer}>
       <div className={s.mainContent}>
@@ -45,8 +62,24 @@ export default function Contracts() {
           <button className={s.button} onClick={() => onDownloadButtonClick("pdf")} type={"button"}>Скачать .pdf</button>
           <button className={s.button} onClick={() => onGenerateButtonClick()}>Сгенерировать договор</button>
         </div>
-        <div className={s.previewContainer}>
-
+        <div className={s.switchButtonContainer}>
+          <button className={viewMode === "template" ? `${s.switchButton} ${s.active}` : `${s.switchButton}`} onClick={() => {setViewMode("template"); setFilePath(`http://localhost:5000/templatesAll/${fileName}`)}}>Шаблон</button>
+          <button className={viewMode === "example" ? `${s.switchButton} ${s.active}` : `${s.switchButton}`} onClick={() => {setViewMode("example"); setFilePath(`http://localhost:5000/templatesAll/${fileName}`)}}>Пример заполнения</button>
+        </div>
+        <div className={s.previewContainer} style={{ overflowY: 'auto' }}>
+          <Document file={filePath} onLoadSuccess={(obj) => setNumPages(obj._pdfInfo.numPages)}>
+            {numPages &&
+              Array.from(new Array(numPages), (el, index) => (
+                <Page
+                  key={`page_${index + 1}`}
+                  pageNumber={index + 1}
+                  renderTextLayer={false}
+                  renderAnnotationLayer={false}
+                  style={{ marginBottom: '20px' }}
+                  
+                />
+              ))}
+          </Document>
         </div>
       </div>
     </div>

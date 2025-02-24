@@ -64,5 +64,42 @@ button.buttonDOCX {
 
 .previewContainer {
   height: 600px;
-  width: 100%;
+  max-width: 100%;
+  padding-bottom: 80px;
+  margin-top: 40px;
+}
+
+.previewContainer canvas {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.switchButtonContainer {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.switchButtonContainer button.switchButton {
+  padding: 20px;
+  width: 200px;
+  background-color: #7e82a4;
+  background-color: #acb3e0;
+  cursor: pointer;
+  text-align: center;
+  font-size: 1.2em;
+  font-weight: 600;
+  transition: background-color 0.5s;
+}
+.switchButtonContainer button.switchButton:first-of-type {
+  border-top-left-radius: 15px;
+  border-bottom-left-radius: 15px;
+}
+.switchButtonContainer button.switchButton:last-of-type {
+  border-top-right-radius: 15px;
+  border-bottom-right-radius: 15px;
+}
+.switchButtonContainer button.active {
+  background-color: #7e82a4;
 }

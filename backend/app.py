@@ -1,11 +1,12 @@
 import os
 
-from flask import Flask, request, send_file
+from flask import Flask, request, send_file, send_from_directory, abort
 from flask_cors import CORS
 from docx import Document
 
 app = Flask(__name__)
-CORS(app, resources={r"/*": {"origins": "http://localhost:3000"}})
+# CORS(app, resources={r"/*": {"origins": "http://localhost:3000"}})
+CORS(app)
 
 @app.route('/api/templates', methods=['GET'])
 def get_templates():
@@ -16,6 +17,15 @@ def get_templates():
     for i in range(len(templates_names)):
         toRet += [[templates_names[i], templates_links[i]]]
     return {"templates" : toRet}
+
+# Получение договора по URL для его предварительного отображения
+FILE_DIRECTORY = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'templatesAll')
+@app.route('/templatesAll/<path:filename>')
+def serve_file(filename):
+    try:
+        return send_from_directory(FILE_DIRECTORY, filename, mimetype='application/pdf', as_attachment=False)
+    except FileNotFoundError:
+        abort(404)
 
 @app.route('/api/downloadTemplate/<template_name>', methods=['GET'])
 def download_template(template_name):
