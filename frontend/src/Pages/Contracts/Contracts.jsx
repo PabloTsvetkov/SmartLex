@@ -46,9 +46,9 @@ export default function Contracts() {
     console.log("error in file viewing: ", error)
   }
 
-  let fileName = contract_info.russian_name.split(' ').join('_') + ".pdf";
+  let fileName = contract_info.russian_name.split(' ').join('_');
 
-  const [filePath, setFilePath] = useState(`http://localhost:5000/templatesAll/${fileName}`);
+  const [filePath, setFilePath] = useState(`http://localhost:5000/templatesAll/${fileName}.pdf`);
 
   const [numPages, setNumPages] = useState(null);
   const [viewMode, setViewMode] = useState('template');
@@ -63,8 +63,8 @@ export default function Contracts() {
           <button className={s.button} onClick={() => onGenerateButtonClick()}>Сгенерировать договор</button>
         </div>
         <div className={s.switchButtonContainer}>
-          <button className={viewMode === "template" ? `${s.switchButton} ${s.active}` : `${s.switchButton}`} onClick={() => {setViewMode("template"); setFilePath(`http://localhost:5000/templatesAll/${fileName}`)}}>Шаблон</button>
-          <button className={viewMode === "example" ? `${s.switchButton} ${s.active}` : `${s.switchButton}`} onClick={() => {setViewMode("example"); setFilePath(`http://localhost:5000/templatesAll/${fileName}`)}}>Пример заполнения</button>
+          <button className={viewMode === "template" ? `${s.switchButton} ${s.active}` : `${s.switchButton}`} onClick={() => {setViewMode("template"); setFilePath(`http://localhost:5000/templatesAll/${fileName}.pdf`)}}>Шаблон</button>
+          <button className={viewMode === "example" ? `${s.switchButton} ${s.active}` : `${s.switchButton}`} onClick={() => {setViewMode("example"); setFilePath(`http://localhost:5000/templatesAll/${fileName}_пример.pdf`)}}>Пример заполнения</button>
         </div>
         <div className={s.previewContainer} style={{ overflowY: 'auto' }}>
           <Document file={filePath} onLoadSuccess={(obj) => setNumPages(obj._pdfInfo.numPages)}>
