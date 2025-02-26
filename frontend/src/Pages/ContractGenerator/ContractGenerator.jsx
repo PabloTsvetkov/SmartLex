@@ -58,11 +58,6 @@ const ContractGenerator = () => {
                             </div>
                         );
                     })}
-                    {/* <div>
-                    <label>Фамилия:</label>
-                    <input type="text" name="surname" onChange={handleInputChange} />
-                </div>
-                */}
                     <button type="submit">Скачать документ</button>
                 </form>
             </div>

@@ -1,3 +1,4 @@
+#TOdo убрать скобочки из генерации документов
 import os
 
 from flask import Flask, request, send_file, send_from_directory, abort
@@ -12,8 +13,8 @@ CORS(app)
 def get_templates():
     # ls = os.listdir("templatesAll")
     toRet = []
-    templates_links = ['basic_employment_contract', 'lease_agreement_for_non-residential_premises', 'sales_contract', '','','','','','']
-    templates_names = ['Базовый трудовой договор', 'Договор аренды нежилого помещения', 'Договор купли-продажи товара']
+    templates_links = ['receipt_of_financial_funds', 'basic_employment_contract', 'lease_agreement_for_non-residential_premises', 'sales_contract', '','','','','','']
+    templates_names = ['Расписка в получении денежных средств', 'Базовый трудовой договор', 'Договор аренды нежилого помещения', 'Договор купли-продажи товара']
     for i in range(len(templates_names)):
         toRet += [[templates_names[i], templates_links[i]]]
     return {"templates" : toRet}
@@ -38,10 +39,14 @@ def generate_contract():
     template_name = data['template']
     fields = data['fields']
     doc = Document(f"templatesForGenerating/{template_name}.docx")
+    i = 1
 
     for key, value in fields.items():
+        print(' - - - - - ', key)
         for paragraph in doc.paragraphs:
             if f'{{{{ {key} }}}}' in paragraph.text:
+                print(i, ' - ', key, value)
+                i = i + 1
                 paragraph.text = paragraph.text.replace(f'{{{{ {key} }}}}', value)
 
     output_path = f"{template_name.replace('.docx', '_filled.docx')}"
