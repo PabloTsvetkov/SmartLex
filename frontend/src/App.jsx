@@ -18,7 +18,7 @@ const App = () => {
                     <Link to="/" className={s.logo}>SL</Link>
                     <Link to="/">Главная</Link>
                     <Link to="/templates">Шаблоны</Link>
-                    <Link to="/generate-contract">Заполнить договор</Link>
+                    {/* <Link to="/generate-contract">Заполнить договор</Link> */}
                 </nav>
 
                 <Routes>
