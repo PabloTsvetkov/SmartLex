@@ -13,8 +13,8 @@ CORS(app)
 def get_templates():
     # ls = os.listdir("templatesAll")
     toRet = []
-    templates_links = ['receipt_of_financial_funds', 'basic_employment_contract', 'lease_agreement_for_non-residential_premises', 'sales_contract', '','','','','','']
-    templates_names = ['Расписка в получении денежных средств', 'Базовый трудовой договор', 'Договор аренды нежилого помещения', 'Договор купли-продажи товара']
+    templates_links = ['receipt_of_financial_funds', 'claims_for_the_return_of_monetary_funds', 'basic_employment_contract', 'lease_agreement_for_non-residential_premises', 'sales_contract', '','','','','','']
+    templates_names = ['Расписка в получении денежных средств', 'Претензия на возврат денежных средств', 'Базовый трудовой договор', 'Договор аренды нежилого помещения', 'Договор купли-продажи товара']
     for i in range(len(templates_names)):
         toRet += [[templates_names[i], templates_links[i]]]
     return {"templates" : toRet}

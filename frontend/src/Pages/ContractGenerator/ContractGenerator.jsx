@@ -13,7 +13,7 @@ const ContractGenerator = () => {
     const current_pathname = location.pathname.split('/').pop();
     const contract_info = getContractInfo(current_pathname);
     const selectedTemplate = contract_info.russian_name;
-
+ 
     const handleInputChange = (event) => {
         const { name, value } = event.target;
         setFormFields({ ...formFields, [name]: value });
