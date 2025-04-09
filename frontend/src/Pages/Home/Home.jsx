@@ -13,6 +13,23 @@ const Home = () => {
                 </p>
                 <h3>Преимущества сервиса</h3>
                 <p>
+                    {/*  */}
+                    <div className={s.container}>
+                        {/* Кружки */}
+                        <div className={`${s.circle} ${s.circle1}`}>Удобство</div>
+                        <div className={`${s.circle} ${s.circle2}`}>Скорость</div>
+                        <div className={`${s.circle} ${s.circle3}`}>Доступ 24/7</div>
+                        <div className={`${s.circle} ${s.circle4}`}>Персонализация</div>
+                        <div className={`${s.circle} ${s.circle5}`}>Экономия</div>
+
+                        {/* Вертикальные стрелки, каждая направлена строго сверху к своему кружку */}
+                        <div className={`${s.arrow} ${s.arrow1}`}></div>
+                        <div className={`${s.arrow} ${s.arrow2}`}></div>
+                        <div className={`${s.arrow} ${s.arrow3}`}></div>
+                        <div className={`${s.arrow} ${s.arrow4}`}></div>
+                        <div className={`${s.arrow} ${s.arrow5}`}></div>
+                    </div>
+                    {/*  */}
                     <ul>
                         <li>Удобство: Интуитивно понятная анкета без сложных терминов – вам не нужны специальные знания.
                         </li>
